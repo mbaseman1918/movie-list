@@ -1,0 +1,8 @@
+CREATE DATABASE movies;
+
+USE movies;
+
+CREATE TABLE movies (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  movie TEXT
+);
