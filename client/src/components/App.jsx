@@ -2,20 +2,16 @@ import React, {useState} from 'react';
 import MovieList from './MovieList.jsx'
 import Search from './Search.jsx'
 import Add from './Add.jsx'
+import axios from 'axios';
 
 const App = (props) => {
-  const movies = [
-    {title: 'Mean Girls', watched: false},
-    {title: 'Hackers', watched: false},
-    {title: 'The Grey', watched: false},
-    {title: 'Sunshine', watched: false},
-    {title: 'Ex Machina', watched: false},
-  ];
-  const [movieList, setMovieList] = useState(movies)
+
+  const [movieList, setMovieList] = useState([])
   const [filterText, setFilterText] = useState('')
   const [search, setSearch] = useState('')
   const [addText, setAddText] = useState('')
   const [watchStatus, setWatchStatus] = useState('')
+
 
   const handleSearch = function(e) {
     setFilterText(e.target.value)
@@ -24,6 +20,12 @@ const App = (props) => {
   const handleSearchSubmit = function() {
     setSearch(filterText)
     setFilterText('')
+    axios.get('http://localhost:3000/api/movies')
+    .then((results) => {
+      console.log('these are the results', results.data);
+      setMovieList(results.data);
+      console.log('this is the movieList', movieList)
+    });
   }
 
   const handleAdd = function(e) {
@@ -44,7 +46,7 @@ const App = (props) => {
     var newMovieArray = []
     movieList.forEach((movie) => {
       if(movie === targetMovie) {
-        var newWatchStatusMovie = {title: movie.title, watched: !movie.watched}
+        var newWatchStatusMovie = {movie: movie.movie, watched: !movie.watched}
         newMovieArray.push(newWatchStatusMovie)
       } else {
         newMovieArray.push(movie)

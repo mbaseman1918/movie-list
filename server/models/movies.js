@@ -9,6 +9,9 @@ module.exports = {
       {title: 'Sunshine', watched: false},
       {title: 'Ex Machina', watched: false},
     ];
-    callback(null, movies)
+    var sqlString = 'SELECT * FRom movies'
+    db.query(sqlString, (err, results) => {
+      callback(err, results);
+    })
   }
 }

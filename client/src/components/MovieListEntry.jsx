@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 const MovieListEntry = (props) => {
   return (
-    <li>{props.movie.title}
+    <li>{props.movie.movie}
     <button onClick={(e) => {
       console.log(props.movie)
       props.handleWatchedClick(props.movie)
